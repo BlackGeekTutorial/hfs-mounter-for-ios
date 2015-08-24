@@ -8,16 +8,21 @@ iscmdfound () {
 CLITOOL=$( { $1 | sed s/Output/Useless/ > outfile; } 2>&1 )
 if [[ $CLITOOL == *"command not found"* ]]; then
     echo "ERROR: Command not found: '$1'. Exiting with failure status now."
-exit
+    exit 1
 fi
 
 }
 
-
+iscmdfound df
 iscmdfound umount
 iscmdfound mount
 iscmdfound grep
 iscmdfound mount_hfs
+
+if [ "$(id -u)" != "0" ]; then
+    echo -en '\E[47;31m'"\033[1m>>> ERROR: This script must be executed with root privileges! Re-run it by typing: su -c hfsunmounter.sh <<<\033[0m"; echo ""
+    exit 1
+fi
 
 
 echo ""; echo "Welcome to hfs mounter for iOS"
@@ -96,3 +101,7 @@ break
     fi
 	
 done
+
+if [[ "$(df /private/var/mobile/EXT)" == *"disk0"* ]]; then
+echo -en '\E[47;31m'"\033[1m>>> ERROR: No device has been mounted <<<\033[0m"; echo ""
+fi
