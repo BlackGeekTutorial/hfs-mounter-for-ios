@@ -3,6 +3,23 @@
 # This is my little tool to mount HFS, HFSX and HFS+ devices plugged in ANY iPad with ANY iOS version.
 # Just plug your USB/SD Card in with the Apple Camera Connection Kit and wait for the "Unsupported device" message on your screen. Then, run 'hfsmounter.sh' from root user in Terminal.
 
+iscmdfound () {
+
+CLITOOL=$( { $1 | sed s/Output/Useless/ > outfile; } 2>&1 )
+if [[ $CLITOOL == *"command not found"* ]]; then
+    echo "ERROR: Command not found: '$1'. Exiting with failure status now."
+exit
+fi
+
+}
+
+
+iscmdfound umount
+iscmdfound mount
+iscmdfound grep
+iscmdfound mount_hfs
+
+
 echo ""; echo "Welcome to hfs mounter for iOS"
 
 if ! [ "$1" == "-v" ]; then
