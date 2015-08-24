@@ -9,7 +9,7 @@ mkdir "/var/mobile/EXT" > /dev/null 2>&1
 umount "/var/mobile/EXT" > /dev/null 2>&1
 echo ""
 
-for i in /dev/disk*s*;
+for i in /dev/disk*;
 do
 
    echo "Checking disk: $i ..."
