@@ -3,7 +3,7 @@
 
 iscmdfound () {
 
-CLITOOL=$( { $1 | sed s/Output/Useless/ > outfile; } 2>&1 )
+CLITOOL=$( { $1 | sed s/Output/Useless/; } 2>&1 )
 if [[ $CLITOOL == *"command not found"* ]]; then
     echo "ERROR: Command not found: '$1'. Exiting with failure status now."
 exit
